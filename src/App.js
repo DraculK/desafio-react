@@ -39,7 +39,12 @@ function App() {
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+    //Aqui, usa-se a crase para conseguir pegar o id do repositório desejado
+    await api.delete(`repositories/${id}`);
+    //Aqui filtra todos os repositórios, garantindo que só os repositórios com o id diferente do que foi removido fiquem.
+    setRepositories(repositories.filter(
+      repository => repository.id !== id
+    ))
   }
         //.map é usado para percorrer algo e retornar alguma informação. No caso, ele percorre todos os repositórios e retorna os títulos
         //key é a informação que caracteriza cada repositório como único. No caso, o id.
@@ -50,7 +55,7 @@ function App() {
         {repositories.map(repository => (
           <li key={repository.id}>
           {repository.title}
-          <button onClick={() => handleRemoveRepository(1)}>
+          <button onClick={() => handleRemoveRepository(repository.id)}>
             Remover
           </button>
         </li>
